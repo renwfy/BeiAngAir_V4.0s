@@ -1,9 +1,5 @@
 package com.beiang.airdog.ui.activity;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -19,10 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.beiang.airdog.api.API;
-import com.beiang.airdog.constant.Constants.AirdogFC;
-import com.beiang.airdog.constant.Constants.Command;
-import com.beiang.airdog.constant.Constants.Device;
-import com.beiang.airdog.constant.Constants.SubDevice;
 import com.beiang.airdog.net.business.BsOperationHub;
 import com.beiang.airdog.net.business.entity.CurrentDevice;
 import com.beiang.airdog.net.business.entity.DevEntity;
@@ -31,17 +23,16 @@ import com.beiang.airdog.net.httpcloud.aync.abs.BaseMsg.RspMsgBase;
 import com.beiang.airdog.net.httpcloud.aync.abs.ReqCbk;
 import com.beiang.airdog.ui.base.BaseMultiPartActivity;
 import com.beiang.airdog.ui.model.AirInfo;
-import com.beiang.airdog.ui.model.AirdogCycle;
 import com.beiang.airdog.ui.model.MenuEntity;
-import com.beiang.airdog.ui.model.OPEntity;
-import com.beiang.airdog.utils.EParse;
 import com.beiang.airdog.utils.LogUtil;
-import com.beiang.airdog.view.AlertDialog;
-import com.beiang.airdog.view.AlertDialog.AlertDialogCallBack;
 import com.beiang.airdog.view.WeatherView;
 import com.beiang.airdog.widget.Toast;
 import com.broadlink.beiangair.R;
 import com.dtr.zxing.activity.EncodeActivity;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class AirdogActivity extends BaseMultiPartActivity implements OnClickListener,OnItemClickListener {
 	private DevEntity mDevice;
@@ -113,35 +104,6 @@ public class AirdogActivity extends BaseMultiPartActivity implements OnClickList
 		// TODO Auto-generated method stub
 		List<MenuEntity> menus = new ArrayList<MenuEntity>();
 		MenuEntity menu = new MenuEntity();
-		menu.setMenu_key("clock");
-		menu.setMenu_name("闹钟");
-		menu.setMenu_icon(R.drawable.ic_menu_clock);
-		menus.add(menu);
-
-		menu = new MenuEntity();
-		menu.setMenu_key("record");
-		menu.setMenu_name("语音");
-		menu.setMenu_icon(R.drawable.ic_menu_record);
-		menus.add(menu);
-
-		menu = new MenuEntity();
-		menu.setMenu_key("volume");
-		menu.setMenu_name("音量");
-		menu.setMenu_icon(R.drawable.ic_menu_volume);
-		menus.add(menu);
-		
-		menu = new MenuEntity();
-		menu.setMenu_key("control");
-		menu.setMenu_name("控制");
-		menu.setMenu_icon(R.drawable.ic_menu_share);
-		menus.add(menu);
-		
-		menu = new MenuEntity();
-		menu.setMenu_key("cycle");
-		menu.setMenu_name("自控");
-		menu.setMenu_icon(R.drawable.ic_menu_share);
-		menus.add(menu);
-
 		menu = new MenuEntity();
 		menu.setMenu_key("edit");
 		menu.setMenu_name("自定义");
@@ -347,43 +309,6 @@ public class AirdogActivity extends BaseMultiPartActivity implements OnClickList
 				return;
 			}
 			qDecode();
-		}
-		if ("cycle".equals(ety.getMenu_key())) {
-			AlertDialog.show(mActivity, R.drawable.ic_top_header, "自动控制", true, new AlertDialogCallBack() {
-				
-				@Override
-				public void onRight() {
-					// TODO Auto-generated method stub
-					OPEntity opEntity = new OPEntity();
-					opEntity.setDevType(Device.DT_Airdog);
-					opEntity.setSubDevType(SubDevice.SDT_Airdog);
-					
-					AirdogCycle cycle = new AirdogCycle();
-					cycle.setIsCylce(0);
-					opEntity.setbEntity(cycle);
-					
-					opEntity.setCommand(Command.WTITE);
-					opEntity.setFunction(AirdogFC.CYCLE.getValue());
-					transportCloud(true, EParse.parseparseOPEntity(opEntity));
-				}
-				
-				@Override
-				public void onLeft() {
-					// TODO Auto-generated method stub
-					OPEntity opEntity = new OPEntity();
-					opEntity.setDevType(Device.DT_Airdog);
-					opEntity.setSubDevType(SubDevice.SDT_Airdog);
-					
-					AirdogCycle cycle = new AirdogCycle();
-					cycle.setIsCylce(1);
-					opEntity.setbEntity(cycle);
-					
-					opEntity.setCommand(Command.WTITE);
-					opEntity.setFunction(AirdogFC.CYCLE.getValue());
-					transportCloud(false, EParse.parseparseOPEntity(opEntity));
-					
-				}
-			});
 		}
 	}
 

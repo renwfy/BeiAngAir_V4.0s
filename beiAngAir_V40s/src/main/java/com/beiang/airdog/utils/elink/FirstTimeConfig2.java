@@ -168,7 +168,8 @@ public class FirstTimeConfig2 {
 
 		String head = "239.118.0.0";
 		this.ip = head;
-		for (int i = 0; i < 5; i++) {
+		//for (int i = 0; i < 5; i++) { //codebase
+		for (int i = 0; i < 1; i++) {
 			this.sockAddr = new InetSocketAddress(
 					InetAddress.getByName(this.ip), this.getRandomNumber());
 			sendData(new DatagramPacket(syncHBuffer, 20, this.sockAddr));
@@ -239,7 +240,8 @@ public class FirstTimeConfig2 {
 			// this.sockAddr), getRandomNumber());
 			// }
 			// }
-			Thread.sleep(50L);
+			//Thread.sleep(50L);cosebase
+			Thread.sleep(3000);
 		}
 	}
 

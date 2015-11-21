@@ -30,32 +30,6 @@ public class API {
 	public static final String AppAdConfogUrl = "http://121.207.243.132:8082/appIndex/beiang/";
 
 	/***
-	 * 获取ip
-	 * 
-	 * @param context
-	 * @param parmas
-	 * @param listener
-	 * @param errorListener
-	 */
-	public static void getAddressWithIp(Context context, Map<String, String> parmas, Listener<String> listener, ErrorListener errorListener) {
-		String GetAddressHost = "http://ip.taobao.com/service/getIpInfo.php?";
-		BANetUtil.get(context, GetAddressHost, parmas, listener, errorListener);
-	}
-
-	/***
-	 * 获取天气数据
-	 * 
-	 * @param context
-	 * @param parmas
-	 * @param listener
-	 * @param errorListener
-	 */
-	public static void getWeather(Context context, Map<String, String> parmas, Listener<String> listener, ErrorListener errorListener) {
-		String WeatherHost = "http://open.weather.com.cn/data/?";// 中国天气网
-		BANetUtil.get(context, WeatherHost, parmas, listener, errorListener);
-	}
-
-	/***
 	 * 获取微信Token
 	 * 
 	 * @param context
@@ -74,38 +48,6 @@ public class API {
 		parmas.put("code", code);
 		parmas.put("grant_type", "authorization_code");
 		BANetUtil.get(context, url, parmas, listener, errorListener);
-	}
-
-	public static String getParmas(Map<String, String> parmas) {
-		if (null == parmas) {
-			return "";
-		}
-		StringBuffer sBuffer = new StringBuffer();
-		Iterator<String> iterator = parmas.keySet().iterator();
-		while (iterator.hasNext()) {
-			String key = (String) iterator.next();
-			sBuffer.append(key + "=" + parmas.get(key) + "&");
-		}
-		return sBuffer.toString();
-	}
-
-	/***
-	 * 解析域名
-	 * 
-	 * @param host
-	 * @return
-	 */
-	public String getNetIpAddress(String host) {
-		String ipStr = "";
-		InetAddress inetAddress = null;
-		try {
-			inetAddress = InetAddress.getByName(host);
-			ipStr = inetAddress.getHostAddress();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ipStr;
 	}
 
 }

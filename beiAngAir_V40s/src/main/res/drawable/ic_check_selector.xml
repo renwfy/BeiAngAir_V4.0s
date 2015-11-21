@@ -3,3 +3,4 @@
     <item android:state_selected="true"  android:drawable="@drawable/ic_check_pressed"/>
     <item android:drawable="@drawable/ic_check_nomal"/>
 </selector>
+<!-- From: file:/Users/LSD/Documents/WorkSpace/Android/AsWorkSpace/BeiAngAir_V4.0s/beiAngAir_V40s/src/main/res/drawable/ic_check_selector.xml -->

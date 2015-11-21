@@ -386,14 +386,8 @@ public class DeviceActivity extends BaseMultiPartActivity implements OnClickList
         } else if (curDevice.devType == Device.DT_TAir) { // TAir
             intent.setClass(DeviceActivity.this, TairActivity.class);
         } else if (curDevice.devType == Device.DT_Light) { // 灯
-            intent.setClass(DeviceActivity.this, DeviceTestActivity.class);
         } else if (curDevice.devType == Device.DT_Outlet) { // 插座
-            intent.setClass(DeviceActivity.this, DeviceTestActivity.class);
-        } else if (curDevice.devType == Device.DT_FC1) { // 新风设备
-            intent.setClass(DeviceActivity.this, FreshAirActivity.class);
-        } else if (curDevice.devType == Device.DT_FA20) { // 新风设备
-            intent.setClass(DeviceActivity.this, FreshLoopsActivity.class);
-        } else {
+        }  else {
             intent.setClass(DeviceActivity.this, DeviceControlActivity.class);
         }
 

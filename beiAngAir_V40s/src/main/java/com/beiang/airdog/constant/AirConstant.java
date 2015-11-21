@@ -27,10 +27,4 @@ public class AirConstant {
 		public static final int OFF = 0;
 	}
 
-	public static class AIR_QUALITY {
-		public static final int LEVEL1 = 1;
-		public static final int LEVEL2 = 2;
-		public static final int LEVEL3 = 3;
-		public static final int LEVEL4 = 3;
-	}
 }

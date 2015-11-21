@@ -23,12 +23,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.baidu.frontia.Frontia;
-import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
-import com.baidu.frontia.api.FrontiaSocialShare;
-import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
-import com.baidu.frontia.api.FrontiaSocialShareContent;
-import com.baidu.frontia.api.FrontiaSocialShareListener;
 import com.beiang.airdog.ui.base.BaseMultiPartActivity;
 import com.beiang.airdog.utils.Settings;
 import com.beiang.airdog.widget.Toast;
@@ -43,8 +37,6 @@ import com.dtr.zxing.encode.QRCodeEncode;
  */
 public final class EncodeActivity extends BaseMultiPartActivity {
 	public static final String CONTENT = "text_content";
-	private FrontiaSocialShareContent mImageContent;
-	private FrontiaSocialShare mSocialShare;
 	private Bitmap shareBitmap;
 
 	private ImageView qrview;
@@ -57,7 +49,6 @@ public final class EncodeActivity extends BaseMultiPartActivity {
 		setContentView(R.layout.encode);
 
 		setMenuEnable(false);
-		initShareConfig();
 
 		initView();
 		init();
@@ -74,8 +65,6 @@ public final class EncodeActivity extends BaseMultiPartActivity {
 					Toast.show(mActivity, "没有生成二维码");
 					return;
 				}
-				mImageContent.setImageData(shareBitmap);
-				mSocialShare.show(EncodeActivity.this.getWindow().getDecorView(), mImageContent, FrontiaTheme.LIGHT, new ShareListener());
 			}
 		});
 	}
@@ -108,43 +97,23 @@ public final class EncodeActivity extends BaseMultiPartActivity {
 		new DecodeTask().execute(content);
 	}
 
-	private void initShareConfig() {
-		mImageContent = new FrontiaSocialShareContent();
-		mSocialShare = Frontia.getSocialShare();
-		mSocialShare.setContext(this);
-		mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "2112656390");
-		mSocialShare.setClientId(MediaType.QZONE.toString(), "1102154446");
-		mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "1102154446");
-		mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "贝昂");
-		mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxc8f3dbe24ba8e504");
+//	private void initShareConfig() {
+//		mImageContent = new FrontiaSocialShareContent();
+//		mSocialShare = Frontia.getSocialShare();
+//		mSocialShare.setContext(this);
+//		mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "2112656390");
+//		mSocialShare.setClientId(MediaType.QZONE.toString(), "1102154446");
+//		mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "1102154446");
+//		mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "贝昂");
+//		mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxc8f3dbe24ba8e504");
+//
+//		mImageContent.setTitle("添加净化器设备");
+//		mImageContent.setQQRequestType(FrontiaSocialShareContent.FrontiaIQQReqestType.TYPE_IMAGE);
+//		mImageContent.setWXMediaObjectType(FrontiaSocialShareContent.FrontiaIMediaObject.TYPE_IMAGE);
+//		mImageContent.setContent("扫描二维码就可以控制净化器哦!");
+//		mImageContent.setLinkUrl(" ");
+//	}
 
-		mImageContent.setTitle("添加净化器设备");
-		mImageContent.setQQRequestType(FrontiaSocialShareContent.FrontiaIQQReqestType.TYPE_IMAGE);
-		mImageContent.setWXMediaObjectType(FrontiaSocialShareContent.FrontiaIMediaObject.TYPE_IMAGE);
-		mImageContent.setContent("扫描二维码就可以控制净化器哦!");
-		mImageContent.setLinkUrl(" ");
-	}
-
-	/***
-	 * 分享回调
-	 * 
-	 * @author LSD
-	 * 
-	 */
-	private class ShareListener implements FrontiaSocialShareListener {
-		@Override
-		public void onSuccess() {
-		}
-
-		@Override
-		public void onFailure(int errCode, String errMsg) {
-		}
-
-		@Override
-		public void onCancel() {
-		}
-	}
-	
 	class DecodeTask extends AsyncTask<String, Void, Bitmap>{
 
         @Override

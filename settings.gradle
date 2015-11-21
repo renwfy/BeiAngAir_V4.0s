@@ -1,2 +1,2 @@
-include ':beiAngSwipeback_lib'
+include ':beiAngSwipeback_lib', ':um_social_lib'
 include ':beiAngAir_V40s'

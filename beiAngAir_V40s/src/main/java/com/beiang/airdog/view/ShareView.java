@@ -3,69 +3,93 @@ package com.beiang.airdog.view;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.widget.Toast;
 
-import com.baidu.frontia.Frontia;
-import com.baidu.frontia.api.FrontiaAuthorization.MediaType;
-import com.baidu.frontia.api.FrontiaSocialShare;
-import com.baidu.frontia.api.FrontiaSocialShare.FrontiaTheme;
-import com.baidu.frontia.api.FrontiaSocialShareContent;
-import com.baidu.frontia.api.FrontiaSocialShareListener;
-import com.beiang.airdog.utils.LogUtil;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.MailShareContent;
+import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.QZoneShareContent;
+import com.umeng.socialize.media.SinaShareContent;
+import com.umeng.socialize.media.SmsShareContent;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
+import com.umeng_social_sdk_res_lib.UMConfig;
+
+import java.io.File;
 
 public class ShareView {
 	Context context;
-	private FrontiaSocialShare mSocialShare;
-	private FrontiaSocialShareContent mImageContent = new FrontiaSocialShareContent();
+	String title = "贝昂空气净化器";
+	String content = "欢迎使贝昂空气净化器，实时监控你的空气质量！";
+	String url = " ";
 
 	public ShareView(Context context) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
-		initShareConfig(context);
 	}
 
-	private void initShareConfig(Context context) {
-		mSocialShare = Frontia.getSocialShare();
-		mSocialShare.setContext(context);
-		mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "2112656390");
-		mSocialShare.setClientId(MediaType.QZONE.toString(), "1102154446");
-		mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "1102154446");
-		mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "贝昂");
-		mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxc8f3dbe24ba8e504");
-
-		mImageContent.setQQRequestType(FrontiaSocialShareContent.FrontiaIQQReqestType.TYPE_IMAGE);
-		mImageContent.setWXMediaObjectType(FrontiaSocialShareContent.FrontiaIMediaObject.TYPE_IMAGE);
-		mImageContent.setTitle("贝昂空气净化器");
-		mImageContent.setContent("欢迎使贝昂空气净化器，实时监控你的空气质量！");
-		mImageContent.setLinkUrl(" ");
-	}
 
 	public void show(Bitmap bitmap) {
-		if (bitmap != null) {
-			mImageContent.setImageData(bitmap);
-		}
-		mSocialShare.show(((Activity) context).getWindow().getDecorView(), mImageContent, FrontiaTheme.LIGHT, new ShareListener());
+		UMImage localImage = new UMImage(context, bitmap);
+
+		//微信
+		WeiXinShareContent weixinContent = new WeiXinShareContent();
+		weixinContent
+				.setShareContent(content);
+		weixinContent.setTitle(title);
+		weixinContent.setTargetUrl("http://www.umeng.com/social");
+		weixinContent.setShareMedia(localImage);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(weixinContent);
+
+		// 设置朋友圈分享的内容
+		CircleShareContent circleMedia = new CircleShareContent();
+		circleMedia
+				.setShareContent(content);
+		circleMedia.setTitle(title);
+		circleMedia.setShareMedia(localImage);
+		circleMedia.setTargetUrl(url);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(circleMedia);
+
+		// 设置QQ空间分享内容
+		QZoneShareContent qzone = new QZoneShareContent();
+		qzone.setShareContent(content);
+		qzone.setTargetUrl(url);
+		qzone.setTitle(title);
+		qzone.setShareMedia(localImage);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(qzone);
+
+		//QQ
+		QQShareContent qqShareContent = new QQShareContent();
+		qqShareContent.setShareContent(content);
+		qqShareContent.setTitle(title);
+		qqShareContent.setShareMedia(localImage);
+		qqShareContent.setTargetUrl(url);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(qqShareContent);
+
+		//sina
+		SinaShareContent sinaContent = new SinaShareContent();
+		sinaContent
+				.setShareContent(content);
+		sinaContent.setTitle(title);
+		sinaContent.setShareImage(localImage);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(sinaContent);
+
+		// 设置邮件分享内容， 如果需要分享图片则只支持本地图片
+		MailShareContent mail = new MailShareContent(localImage);
+		mail.setTitle(title);
+		mail.setShareContent(content);
+		// 设置tencent分享内容
+		UMConfig.getInstance().getUMSocialService().setShareMedia(mail);
+
+		// 设置短信分享内容
+		SmsShareContent sms = new SmsShareContent();
+		sms.setShareContent(content);
+		sms.setShareImage(localImage);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(sms);
+
+		UMConfig.getInstance().getUMSocialService().getConfig().setPlatforms(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
+				SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT,
+				SHARE_MEDIA.EMAIL, SHARE_MEDIA.SMS);
+		UMConfig.getInstance().getUMSocialService().openShare((Activity)context, false);
 	}
-
-	private class ShareListener implements FrontiaSocialShareListener {
-		@Override
-		public void onSuccess() {
-			LogUtil.d("Test", "share success");
-			Toast.makeText(context, "分享成功!", Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onFailure(int errCode, String errMsg) {
-			LogUtil.d("Test", "share errCode " + errCode);
-			Toast.makeText(context, "分享失败!", Toast.LENGTH_SHORT).show();
-		}
-
-		@Override
-		public void onCancel() {
-			LogUtil.d("Test", "cancel ");
-			Toast.makeText(context, "分享取消!", Toast.LENGTH_SHORT).show();
-		}
-
-	}
-
 }

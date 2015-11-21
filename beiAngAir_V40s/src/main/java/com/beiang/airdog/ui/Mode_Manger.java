@@ -9,15 +9,10 @@ import android.os.Handler;
 import android.view.View;
 
 import com.beiang.airdog.ui.activity.AboutActivity;
-import com.beiang.airdog.ui.activity.AirDogControlActivity;
-import com.beiang.airdog.ui.activity.AirdogAlarmActivity;
-import com.beiang.airdog.ui.activity.AirdogRecordActivity;
-import com.beiang.airdog.ui.activity.AirdogVolumeActivity;
 import com.beiang.airdog.ui.activity.BindUserActivity;
 import com.beiang.airdog.ui.activity.ConfigDeviceActivity;
 import com.beiang.airdog.ui.activity.EditInfoActivity;
 import com.beiang.airdog.ui.activity.HelpActivity;
-import com.beiang.airdog.ui.activity.IHomerActivity;
 import com.beiang.airdog.ui.activity.LoginActivity;
 import com.beiang.airdog.ui.activity.RegisterActivity;
 import com.beiang.airdog.ui.model.MenuEntity;
@@ -25,15 +20,6 @@ import com.beiang.airdog.view.ShareView;
 
 public class Mode_Manger {
 	public static void startModesActivity(final Context context, MenuEntity ety) {
-		if ("volume".equals(ety.getMenu_key())) {
-			context.startActivity(new Intent(context, AirdogVolumeActivity.class));
-		}
-		if ("record".equals(ety.getMenu_key())) {
-			context.startActivity(new Intent(context, AirdogRecordActivity.class));
-		}
-		if ("clock".equals(ety.getMenu_key())) {
-			context.startActivity(new Intent(context, AirdogAlarmActivity.class));
-		}
 		if ("acout".equals(ety.getMenu_key())) {
 			context.startActivity(new Intent(context, LoginActivity.class));
 		}
@@ -75,12 +61,6 @@ public class Mode_Manger {
 		}
 		if ("bind".equals(ety.getMenu_key())) {
 			context.startActivity(new Intent(context, BindUserActivity.class));
-		}
-		if ("control".equals(ety.getMenu_key())) {
-			context.startActivity(new Intent(context, AirDogControlActivity.class));
-		}
-		if ("cloud".equals(ety.getMenu_key())) {
-			context.startActivity(new Intent(context, IHomerActivity.class));
 		}
 
 	}

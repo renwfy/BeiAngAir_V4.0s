@@ -1,33 +1,14 @@
 package com.beiang.airdog.constant;
 
 public class Constants {
-	// 本地数据库名
-	public static final String DB_NAME = "beiangAir.db";
-	public static final String CITY_DB_NAME = "cities.db";
 	// 本地文件
 	public static final String FILE_NAME = "BeiAngAir";
-	// 更新的APK名称
-	public static final String UPDATE_APK_NAME = "updata.apk";
-	public static final String ICON_HEAD = "device_";
-	public static final String ICON_TYPE = ".png";
-	public static final String TEMP_IMAGE = "temp_image.png";
-	// 首页广告配置文件
-	public static final String CONFIG_AD = "ad.png";
-	public static final String CONFIG_FILE = "config.json";
 	/** 文件夹名 **/
 	public static final String FILE_DEVICE_ICON = "DeviceIcon";
-	public static final String FILE_QR = "qr";
 	/** 文件夹名 **/
 	public static final String FILE_ALL_DEVICE_ICON = "AllDeviceIcon";
 	/**录音*/
 	public static final String RECORD = "record";
-
-	/** 网络模式 */
-	public enum Network {
-		LOCAL(), SERVER();
-		private Network() {
-		}
-	}
 
 	/** 设备类型 */
 	public static class Device {
@@ -46,74 +27,6 @@ public class Constants {
 		public static final int DT_FC1 = 258;
 	}
 
-	/***
-	 * 
-	 * 子设备
-	 */
-	public static class SubDevice {
-		public static final int SDT_Airdog = 0;
-		public static final int SDT_AirCondition = 1;
-		public static final int SDT_AirClean = 2;
-	}
-
-	/***
-	 * 
-	 * 操作类型
-	 * 
-	 * @author LSD
-	 * 
-	 */
-	public enum Command {
-		READ(1), WTITE(2), DELETE(3), SET(4), TEST(170);
-
-		int command = 0;
-
-		private Command(int command) {
-			this.command = command;
-		}
-
-		public int getValue() {
-			return this.command;
-		}
-	}
-
-	/**
-	 * 小狗功能码
-	 * 
-	 * @author LSD
-	 */
-	public enum AirdogFC {
-		VOLUME(0), ALARM(1), MUSIC(2),CYCLE(3),TEST_CC(204);
-
-		int fc = 0;
-
-		private AirdogFC(int fc) {
-			this.fc = fc;
-		}
-
-		public int getValue() {
-			return this.fc;
-		}
-	}
-
-	/***
-	 * 闹钟类型
-	 * 
-	 * @author LSD
-	 * 
-	 */
-	public enum AlarmType {
-		GETUP(1), MEETING(2), REST(3), SLEEP(4), ORTHER(5),DEFINE(6),EVENT(7);
-		int type = 1;
-
-		private AlarmType(int type) {
-			this.type = type;
-		}
-
-		public int getValue() {
-			return this.type;
-		}
-	}
 
 	public static String getDeviceName(int deviceType) {
 		String name = "";
@@ -159,14 +72,4 @@ public class Constants {
 		return name;
 	}
 
-	/***
-	 * WIFI方案
-	 * 
-	 * @author LSD
-	 * 
-	 */
-	public static class WifiModule {
-		public static final int WM_MXChip = 333;// MXDevice
-		public static final int WM_BLink = 301;// BLDevice
-	}
 }

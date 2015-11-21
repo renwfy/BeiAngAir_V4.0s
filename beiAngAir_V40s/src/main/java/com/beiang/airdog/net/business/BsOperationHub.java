@@ -25,7 +25,6 @@ import com.beiang.airdog.net.business.homer.QueryBindedResultPair;
 import com.beiang.airdog.net.business.homer.QueryDevStatusPair;
 import com.beiang.airdog.net.business.impl.AccoutOperator;
 import com.beiang.airdog.net.business.impl.BsOperator;
-import com.beiang.airdog.net.business.impl.IHomerOperator;
 import com.beiang.airdog.net.httpcloud.aync.ServerDefinition.BusinessErr;
 import com.beiang.airdog.net.httpcloud.aync.abs.BaseMsg.RspMsgBase;
 import com.beiang.airdog.net.httpcloud.aync.abs.ReqCbk;
@@ -39,7 +38,6 @@ public class BsOperationHub {
 
 	private BaseAcountOp mAccoutOp;
 	private BaseBsOp mBsOp;
-	private BaseCloudIHomer mHomer;
 
 	synchronized public static BsOperationHub instance() {
 		if (sOperator == null) {
@@ -51,7 +49,6 @@ public class BsOperationHub {
 	private BsOperationHub() {
 		mAccoutOp = new AccoutOperator();
 		mBsOp = new BsOperator();
-		mHomer = new IHomerOperator();
 	}
 
 	public void phoneRegister(final String phone, final String passwd, String code, String info, final ReqCbk<RspMsgBase> cloudCbk) {
@@ -423,122 +420,6 @@ public class BsOperationHub {
 		mBsOp.upDateAuthrorize(entity, userId, cbk);
 	}
 	
-	/**创建家庭*/
-	public void addHomer(String name, ReqCbk<RspMsgBase> cbk){
-		mHomer.addHome(name, cbk);
-	}
-	
-	/**获取家庭*/
-	public void getHomer(ReqCbk<RspMsgBase> cbk){
-		mHomer.getHome(cbk);
-	}
-	
-	/**家庭控制*/
-	public void homeSendCmd(long home_id, long device_id, String device_sn, byte[] cmd, ReqCbk<RspMsgBase> cbk){
-		mHomer.sendHomeCmd(home_id, device_id, device_sn, cmd, cbk);
-	}
-	
-	/**添加定时器*/
-	public void homeAddTime(long home_id, long device_id, String device_sn, int repeat, long secs, List<Integer> week, byte[]cmd,
-			ReqCbk<RspMsgBase> cbk) {
-		mHomer.addTime(home_id, device_id, device_sn, repeat, secs, week, cmd, cbk);
-	}
-
-	public void homeGetTime(long home_id, long timer_id, ReqCbk<RspMsgBase> cbk) {
-		mHomer.getTime(home_id, timer_id, cbk);
-	}
-
-	/**更新定时器*/
-	public void homeUpdateTime(long home_id, long timer_id,long device_id, String device_sn, int repeat, long secs, List<Integer> week, byte[] cmd,ReqCbk<RspMsgBase> cbk) {
-		mHomer.updateTime(home_id, timer_id,device_id, device_sn, repeat, secs, week, cmd,cbk);
-	}
-
-	/**删除定时器*/
-	public void homeDelTime(long home_id, long timer_id, ReqCbk<RspMsgBase> cbk) {
-		mHomer.delTime(home_id, timer_id, cbk);
-	}
-
-	/**添加规则*/
-	public void homeAddScript(long home_id, long device_id, String device_sn, int type, int repeat, long secs, List<Integer> week,
-			String user_time, String factor, String msg, ReqCbk<RspMsgBase> cbk) {
-		mHomer.addScript(home_id, device_id, device_sn, type, repeat, secs, week, user_time, factor, msg, cbk);
-	}
-
-	/**获取规则*/
-	public void homeGetScript(long home_id, long script_id, ReqCbk<RspMsgBase> cbk) {
-		mHomer.getScript(home_id, script_id, cbk);
-	}
-
-	/**更新规则*/
-	public void homeUpdateScript(long home_id, long device_id,long script_id, String device_sn, int type, int repeat, long secs, List<Integer> week,
-			String user_time, String factor, String msg, ReqCbk<RspMsgBase> cbk) {
-		mHomer.updateScript(home_id, device_id,script_id, device_sn, type, repeat, secs, week, user_time, factor, msg, cbk);
-	}
-
-	/**删除规则*/
-	public void homeDelScript(long home_id, long script_id, ReqCbk<RspMsgBase> cbk) {
-		mHomer.delScript(home_id, script_id, cbk);
-	}
-	
-	/**添加设备到家庭*/
-	public void homeAddDevice(long home_id, long device_id, String device_sn, String name, String room, ReqCbk<RspMsgBase> cbk){
-		mHomer.addDevice(home_id, device_id, device_sn, name, room, cbk);
-	}
-	
-	/**家庭更新设备*/
-	public void homeUpdateDevice(long home_id, long device_id, String device_sn, String name, String room, ReqCbk<RspMsgBase> cbk){
-		mHomer.updateDevice(home_id, device_id, device_sn, name, room, cbk);
-	}
-	
-	/**获取家庭中的设备*/
-	public void homeGetDevice(long home_id, ReqCbk<RspMsgBase> cbk){
-		mHomer.getDevice(home_id, cbk);
-	}
-	
-	/**删除家庭中设备*/
-	public void homeDelDevice(long home_id, long device_id, String device_sn, ReqCbk<RspMsgBase> cbk){
-		mHomer.delDevice(home_id, device_id, device_sn, cbk);
-	}
-	
-	/**添加用户到家庭*/
-	public void homeAddUser(long home_id, long user_id, long tar_id, String name, String role, ReqCbk<RspMsgBase> cbk){
-		mHomer.addUser(home_id, user_id, tar_id, name, role, cbk);
-	}
-	
-	/**获取家庭中的用户*/
-	public void homeGetUser(long home_id, ReqCbk<RspMsgBase> cbk){
-		mHomer.getUser(home_id, cbk);
-	}
-	
-	/**删除家庭中用户*/
-	public void homeDelUser(long home_id, long user_id, long tar_id, ReqCbk<RspMsgBase> cbk){
-		mHomer.delUser(home_id, user_id, tar_id, cbk);
-	}
-	
-	/**添加房间*/
-	public void homeAddRoom(long home_id, String name, String brief, ReqCbk<RspMsgBase> cbk){
-		mHomer.addRoom(home_id, name, brief, cbk);
-	}
-
-	/**更新房间*/
-	public void homeUpdateRoom(long home_id, long room_id,String name, String brief, ReqCbk<RspMsgBase> cbk){
-		mHomer.updateRoom(home_id, room_id,name, brief, cbk);
-	}
-
-	/**获取房间*/
-	public void homeGetRoom(long home_id, ReqCbk<RspMsgBase> cbk){
-		mHomer.getRoom(home_id, cbk);
-	}
-
-	/**删除房间*/
-	public void homeDelRoom(long home_id, long room_id, ReqCbk<RspMsgBase> cbk){
-		mHomer.delRoom(home_id, room_id, cbk);
-	}
-	
-	/**s设置家庭中的主设备*/
-	public void homeSetMonitor(long home_id, long device_id, String device_sn, ReqCbk<RspMsgBase> cbk){
-		mHomer.setMonitor(home_id, device_id, device_sn, cbk);
-	}
 
 	/** 查找绑定结果操作 */
 	boolean query = false;

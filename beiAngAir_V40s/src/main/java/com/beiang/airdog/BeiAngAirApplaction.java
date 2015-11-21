@@ -1,7 +1,7 @@
 package com.beiang.airdog;
 
-import com.baidu.frontia.Frontia;
-import com.baidu.frontia.FrontiaApplication;
+import android.app.Application;
+
 import com.beiang.airdog.net.business.entity.CurrentDevice;
 import com.beiang.airdog.net.business.entity.CurrentUser;
 import com.beiang.airdog.ui.ActivityManager;
@@ -10,8 +10,9 @@ import com.beiang.airdog.utils.LogUtil;
 import com.beiang.airdog.utils.Settings;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.umeng_social_sdk_res_lib.UMConfig;
 
-public class BeiAngAirApplaction extends FrontiaApplication {
+public class BeiAngAirApplaction extends Application {
 	public static BeiAngAirApplaction applaction;
 	public static IWXAPI api;
 	
@@ -19,7 +20,7 @@ public class BeiAngAirApplaction extends FrontiaApplication {
 	public void onCreate() {
 		super.onCreate();
 		applaction = this;
-		
+
 		init();
 	}
 	
@@ -31,9 +32,8 @@ public class BeiAngAirApplaction extends FrontiaApplication {
 		String appId = "wx037f301a0ec34f84";
 		api = WXAPIFactory.createWXAPI(this, appId,true);
 		api.registerApp(appId);
-		
-		//初始化百度分享
-		Frontia.init(this.getApplicationContext(), "SMT9pXGos5t0ZR7mMlcVMGlx");
+
+		UMConfig.onCreate(getApplicationContext());
 		
 		//初始化屏幕大小
 		Settings.P_HEIGHT = getResources().getDisplayMetrics().heightPixels;
