@@ -245,7 +245,7 @@
         <!-- 百度API  - 定位 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="is7KNmoo314YQWSlaKjo1HQ6" />
+            android:value="XGinBm6WX9vBq7hLGANT1hvs" />
 
         <service
             android:name="com.baidu.location.f"
@@ -309,18 +309,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- *************************    分享相关的注册 END **************************** -->
-
-
-        <!-- 广播监听 -->
-        <receiver android:name="com.beiang.airdog.receiver.BABroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.beiang.airdog.heartbeat" />
-            </intent-filter>
-        </receiver>
-
-
-
     </application>
 
 </manifest>
