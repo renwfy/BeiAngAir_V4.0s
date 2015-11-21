@@ -34,52 +34,42 @@ public class ShareView {
 
 		//微信
 		WeiXinShareContent weixinContent = new WeiXinShareContent();
-		weixinContent
-				.setShareContent(content);
+		//weixinContent.setShareContent(content);
 		weixinContent.setTitle(title);
-		weixinContent.setTargetUrl("http://www.umeng.com/social");
+		//weixinContent.setTargetUrl(" ");
 		weixinContent.setShareMedia(localImage);
 		UMConfig.getInstance().getUMSocialService().setShareMedia(weixinContent);
 
 		// 设置朋友圈分享的内容
 		CircleShareContent circleMedia = new CircleShareContent();
-		circleMedia
-				.setShareContent(content);
+		//circleMedia.setShareContent(content);
 		circleMedia.setTitle(title);
 		circleMedia.setShareMedia(localImage);
-		circleMedia.setTargetUrl(url);
+		//circleMedia.setTargetUrl(url);
 		UMConfig.getInstance().getUMSocialService().setShareMedia(circleMedia);
 
-		// 设置QQ空间分享内容
+		//QQ
+		QQShareContent qqShareContent = new QQShareContent();
+		//qqShareContent.setShareContent(content);
+		qqShareContent.setTitle(title);
+		qqShareContent.setShareMedia(localImage);
+		//qqShareContent.setTargetUrl(url);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(qqShareContent);
+
+		//QQ空间
 		QZoneShareContent qzone = new QZoneShareContent();
-		qzone.setShareContent(content);
-		qzone.setTargetUrl(url);
+		//qzone.setShareContent(content);
+		//qzone.setTargetUrl(url);
 		qzone.setTitle(title);
 		qzone.setShareMedia(localImage);
 		UMConfig.getInstance().getUMSocialService().setShareMedia(qzone);
 
-		//QQ
-		QQShareContent qqShareContent = new QQShareContent();
-		qqShareContent.setShareContent(content);
-		qqShareContent.setTitle(title);
-		qqShareContent.setShareMedia(localImage);
-		qqShareContent.setTargetUrl(url);
-		UMConfig.getInstance().getUMSocialService().setShareMedia(qqShareContent);
-
 		//sina
 		SinaShareContent sinaContent = new SinaShareContent();
-		sinaContent
-				.setShareContent(content);
+		//sinaContent.setShareContent(content);
 		sinaContent.setTitle(title);
 		sinaContent.setShareImage(localImage);
 		UMConfig.getInstance().getUMSocialService().setShareMedia(sinaContent);
-
-		// 设置邮件分享内容， 如果需要分享图片则只支持本地图片
-		MailShareContent mail = new MailShareContent(localImage);
-		mail.setTitle(title);
-		mail.setShareContent(content);
-		// 设置tencent分享内容
-		UMConfig.getInstance().getUMSocialService().setShareMedia(mail);
 
 		// 设置短信分享内容
 		SmsShareContent sms = new SmsShareContent();
@@ -87,9 +77,16 @@ public class ShareView {
 		sms.setShareImage(localImage);
 		UMConfig.getInstance().getUMSocialService().setShareMedia(sms);
 
+		// 设置邮件分享内容， 如果需要分享图片则只支持本地图片
+		MailShareContent mail = new MailShareContent(localImage);
+		mail.setTitle(title);
+		//mail.setShareContent(content);
+		// 设置tencent分享内容
+		mail.setShareImage(localImage);
+		UMConfig.getInstance().getUMSocialService().setShareMedia(mail);
+
 		UMConfig.getInstance().getUMSocialService().getConfig().setPlatforms(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
-				SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT,
-				SHARE_MEDIA.EMAIL, SHARE_MEDIA.SMS);
-		UMConfig.getInstance().getUMSocialService().openShare((Activity)context, false);
+				SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA, SHARE_MEDIA.SMS,SHARE_MEDIA.EMAIL);
+		UMConfig.getInstance().getUMSocialService().openShare((Activity) context, false);
 	}
 }

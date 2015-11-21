@@ -35,14 +35,14 @@ public class Mode_Manger {
 			context.startActivity(new Intent(context, HelpActivity.class));
 		}
 		if ("share".equals(ety.getMenu_key())) {
-			final Bitmap bitmap = takeScreenShot((Activity) context);
 			new Handler().postDelayed(new Runnable() {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
+					final Bitmap bitmap = takeScreenShot((Activity) context);
 					new ShareView(context).show(bitmap);
 				}
-			}, 10);
+			}, 500);
 		}
 		if ("Auth".equals(ety.getMenu_key())) {
 		}

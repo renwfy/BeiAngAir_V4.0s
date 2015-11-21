@@ -28,12 +28,10 @@ public class BeiAngAirApplaction extends Application {
 		return applaction;
 	}
 	public void init() {
-		//微信注册
+		//微信登陆 - 用的是贝昂的微信
 		String appId = "wx037f301a0ec34f84";
 		api = WXAPIFactory.createWXAPI(this, appId,true);
 		api.registerApp(appId);
-
-		UMConfig.onCreate(getApplicationContext());
 		
 		//初始化屏幕大小
 		Settings.P_HEIGHT = getResources().getDisplayMetrics().heightPixels;

@@ -47,6 +47,7 @@ import com.beiang.airdog.widget.pullrefresh.PullToRefreshGridView;
 import com.broadlink.beiangair.R;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.umeng_social_sdk_res_lib.UMConfig;
 
 public class DeviceActivity extends BaseMultiPartActivity implements OnClickListener, OnLongClickListener, OnItemClickListener {
     private RelativeLayout dev_layout;
@@ -64,6 +65,7 @@ public class DeviceActivity extends BaseMultiPartActivity implements OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
+        UMConfig.onCreate(mActivity);//初始化分享
 
         // 设置父组件
         setSwipeBackEnable(false);

@@ -1,13 +1,16 @@
 package com.umeng_social_sdk_res_lib;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.sso.EmailHandler;
+import com.umeng.socialize.sso.QZoneSsoHandler;
 import com.umeng.socialize.sso.SinaSsoHandler;
 import com.umeng.socialize.sso.SmsHandler;
 import com.umeng.socialize.sso.TencentWBSsoHandler;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 
 /**
@@ -64,8 +67,13 @@ public class UMConfig {
         String appId = "1102154446";
         String appKey = "H5fwGHchvwGG92Ce";
         // 添加QQ支持, 并且设置QQ分享内容的target url
-        //QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler((Activity)applicationContext, appId, appKey);
-        //qZoneSsoHandler.addToSocialSDK();
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler((Activity)applicationContext,
+                appId, appKey);
+        qqSsoHandler.addToSocialSDK();
+
+        // 添加QZone平台
+        QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler((Activity)applicationContext, appId, appKey);
+        qZoneSsoHandler.addToSocialSDK();
     }
 
     /**
@@ -73,8 +81,8 @@ public class UMConfig {
      * @功能描述 : 添加微信平台分享
      */
     private static void addWXPlatform() {
-        String appId = "wx42e82edbe4bcc118";
-        String appSecret = "fe5e2430494ccbb052fb13b4fa226aa5";
+        String appId = "wxc8f3dbe24ba8e504";
+        String appSecret = "dd231458131f99f19185880f3b86bb39";
         // 添加微信平台
         UMWXHandler wxHandler = new UMWXHandler(applicationContext, appId, appSecret);
         wxHandler.addToSocialSDK();

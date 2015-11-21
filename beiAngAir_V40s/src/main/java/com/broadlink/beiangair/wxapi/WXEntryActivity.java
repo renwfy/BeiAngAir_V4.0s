@@ -27,12 +27,18 @@ public class WXEntryActivity extends BaseMultiPartActivity implements IWXAPIEven
 	@Override
 	public void onResp(BaseResp resp) {
 		// TODO Auto-generated method stub
-		SendAuth.Resp sendResp = (SendAuth.Resp) resp;
-		if (sendResp.errCode == BaseResp.ErrCode.ERR_OK) {
-			// 同意登陆
-			String code = sendResp.code;
+		if(resp instanceof  SendAuth.Resp){
+			//登陆
+			SendAuth.Resp sendResp = (SendAuth.Resp) resp;
+			if (sendResp.errCode == BaseResp.ErrCode.ERR_OK) {
+				// 同意登陆
+				String code = sendResp.code;
 
-			startActivity(new Intent(mActivity, TrdLoginActivity.class).putExtra("weixin_code", code));
+				startActivity(new Intent(mActivity, TrdLoginActivity.class).putExtra("weixin_code", code));
+				finish();
+			}
+		}else{
+			//分享
 			finish();
 		}
 	}
