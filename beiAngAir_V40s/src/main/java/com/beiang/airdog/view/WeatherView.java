@@ -69,7 +69,8 @@ public class WeatherView extends RelativeLayout implements View.OnClickListener 
 	}
 
 	public void load() {
-		queryDevIpWeather();
+		//queryDevIpWeather();
+		getCurCityWeather();
 	}
 
 	public void load(WeatherLoadListener loadListener) {

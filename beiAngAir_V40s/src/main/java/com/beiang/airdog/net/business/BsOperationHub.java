@@ -31,6 +31,7 @@ import com.beiang.airdog.net.httpcloud.aync.abs.ReqCbk;
 import com.beiang.airdog.net.httpcloud.aync.abs.ReqCbk.ErrorCause;
 import com.beiang.airdog.net.httpcloud.aync.abs.ReqCbk.ErrorObject;
 import com.beiang.airdog.utils.EParse;
+import com.beiang.airdog.utils.LogUtil;
 import com.beiang.airdog.utils.TimerUtil;
 
 public class BsOperationHub {

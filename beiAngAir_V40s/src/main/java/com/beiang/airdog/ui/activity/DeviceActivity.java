@@ -382,14 +382,12 @@ public class DeviceActivity extends BaseMultiPartActivity implements OnClickList
         //}
 
         Intent intent = new Intent();
-        LogUtil.d(curDevice.devType+"");
+        LogUtil.d(curDevice.devType + "");
         if (curDevice.devType == Device.DT_Airdog) { // AirDog
             intent.setClass(DeviceActivity.this, AirdogActivity.class);
         } else if (curDevice.devType == Device.DT_TAir) { // TAir
             intent.setClass(DeviceActivity.this, TairActivity.class);
-        } else if (curDevice.devType == Device.DT_Light) { // 灯
-        } else if (curDevice.devType == Device.DT_Outlet) { // 插座
-        }  else {
+        } else {
             intent.setClass(DeviceActivity.this, DeviceControlActivity.class);
         }
 
