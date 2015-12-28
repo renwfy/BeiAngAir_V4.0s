@@ -95,7 +95,7 @@ public class AddCityActivity extends BaseMultiPartActivity {
 				}
 			}
 		});
-		/*city_glist.setOnItemClickListener(new OnItemClickListener() {
+		city_glist.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// TODO Auto-generated method stub
@@ -104,7 +104,7 @@ public class AddCityActivity extends BaseMultiPartActivity {
 				setResult(RESULT_OK);
 				finish();
 			}
-		});*/
+		});
 	}
 
 	private void getData() {

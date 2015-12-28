@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.beiang.airdog.api.API;
 import com.beiang.airdog.constant.AirConstant;
 import com.beiang.airdog.constant.Constants.Device;
+import com.beiang.airdog.db.DB_Location;
 import com.beiang.airdog.net.business.BsOperationHub;
 import com.beiang.airdog.net.business.entity.CurrentDevice;
 import com.beiang.airdog.net.business.entity.DevEntity;
@@ -92,6 +93,7 @@ public class DeviceControlActivity extends BaseMultiPartActivity implements OnCl
         initData();
         initView();
         setData();
+        weather_layout.setCanLoadMore(true);
         weather_layout.load();
     }
 
@@ -681,6 +683,9 @@ public class DeviceControlActivity extends BaseMultiPartActivity implements OnCl
         }
         if (requestCode == 200) {
             tv_dev_nicename.setText(mDevice.nickName);
+        }
+        if (requestCode == 1000) {
+            weather_layout.load(new DB_Location(mActivity).getSelectCity());
         }
     }
 
