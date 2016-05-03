@@ -292,16 +292,16 @@ public class DeviceControlActivity extends BaseMultiPartActivity implements OnCl
                 } else {
                     int level = mAirInfo.getAirLevel();
                     switch (level) {
-                        case 0:
+                        case 1:
                             iv_air_level.setImageResource(R.drawable.ic_dev_air_level1);
                             break;
-                        case 1:
+                        case 2:
                             iv_air_level.setImageResource(R.drawable.ic_dev_air_level2);
                             break;
-                        case 2:
+                        case 3:
                             iv_air_level.setImageResource(R.drawable.ic_dev_air_level3);
                             break;
-                        case 3:
+                        case 4:
                             iv_air_level.setImageResource(R.drawable.ic_dev_air_level4);
                             break;
                         default:
