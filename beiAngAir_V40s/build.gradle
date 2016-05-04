@@ -8,8 +8,8 @@ android {
         applicationId "com.broadlink.beiangair"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 148
-        versionName "1.4.8.1224"
+        versionCode 149
+        versionName "1.4.9.0503"
     }
 
     signingConfigs {
