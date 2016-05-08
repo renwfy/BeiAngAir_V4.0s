@@ -74,4 +74,35 @@ public class FileUtils {
 		File file_RECORD_PATH = new File(Settings.RECORD_PATH);
 		file_RECORD_PATH.mkdirs();
 	}
+
+
+	public static File saveBitmapToLocal(Bitmap bm){
+		String name = "share.png";
+		File folder = new File(Settings.BASE_PATH +"/qr");
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+		File imgFile = new File(folder+"/"+name);
+		if(imgFile.exists()){
+			imgFile.delete();
+		}
+		try {
+			imgFile.createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			FileOutputStream out = new FileOutputStream(imgFile);
+			bm.compress(Bitmap.CompressFormat.PNG, 100, out);
+			out.flush();
+			out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return imgFile;
+	}
 }

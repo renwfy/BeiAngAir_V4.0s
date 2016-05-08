@@ -28,10 +28,22 @@ public class ShareView {
 		this.context = context;
 	}
 
+	public void show(File file) {
+		UMImage localImage = new UMImage(context, file);
+		share(localImage);
+	}
 
 	public void show(Bitmap bitmap) {
 		UMImage localImage = new UMImage(context, bitmap);
+		share(localImage);
+	}
 
+	public void show(byte[] bitmapData) {
+		UMImage localImage = new UMImage(context, bitmapData);
+		share(localImage);
+	}
+
+	private void share(UMImage localImage){
 		//微信
 		WeiXinShareContent weixinContent = new WeiXinShareContent();
 		//weixinContent.setShareContent(content);

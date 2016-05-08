@@ -16,18 +16,24 @@
 
 package com.dtr.zxing.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.beiang.airdog.ui.base.BaseMultiPartActivity;
+import com.beiang.airdog.utils.FileUtils;
 import com.beiang.airdog.utils.Settings;
+import com.beiang.airdog.view.ShareView;
 import com.beiang.airdog.widget.Toast;
 import com.broadlink.beiangair.R;
 import com.dtr.zxing.encode.QRCodeEncode;
+
+import java.io.File;
 
 /**
  * This class encodes data from an Intent into a QR code, and then displays it
@@ -65,6 +71,7 @@ public final class EncodeActivity extends BaseMultiPartActivity {
 					Toast.show(mActivity, "没有生成二维码");
 					return;
 				}
+				new ShareView(mActivity).show(takeScreenShot(EncodeActivity.this));
 			}
 		});
 	}
@@ -97,23 +104,6 @@ public final class EncodeActivity extends BaseMultiPartActivity {
 		new DecodeTask().execute(content);
 	}
 
-//	private void initShareConfig() {
-//		mImageContent = new FrontiaSocialShareContent();
-//		mSocialShare = Frontia.getSocialShare();
-//		mSocialShare.setContext(this);
-//		mSocialShare.setClientId(MediaType.SINAWEIBO.toString(), "2112656390");
-//		mSocialShare.setClientId(MediaType.QZONE.toString(), "1102154446");
-//		mSocialShare.setClientId(MediaType.QQFRIEND.toString(), "1102154446");
-//		mSocialShare.setClientName(MediaType.QQFRIEND.toString(), "贝昂");
-//		mSocialShare.setClientId(MediaType.WEIXIN.toString(), "wxc8f3dbe24ba8e504");
-//
-//		mImageContent.setTitle("添加净化器设备");
-//		mImageContent.setQQRequestType(FrontiaSocialShareContent.FrontiaIQQReqestType.TYPE_IMAGE);
-//		mImageContent.setWXMediaObjectType(FrontiaSocialShareContent.FrontiaIMediaObject.TYPE_IMAGE);
-//		mImageContent.setContent("扫描二维码就可以控制净化器哦!");
-//		mImageContent.setLinkUrl(" ");
-//	}
-
 	class DecodeTask extends AsyncTask<String, Void, Bitmap>{
 
         @Override
@@ -123,9 +113,26 @@ public final class EncodeActivity extends BaseMultiPartActivity {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-        	qrview.setImageBitmap(bitmap);
         	shareBitmap = bitmap;
+			qrview.setImageBitmap(shareBitmap);
         }
     }
 
+	private Bitmap takeScreenShot(Activity activity) {
+		// View是你需要截图的View
+		View view = activity.getWindow().getDecorView();
+		view.setDrawingCacheEnabled(true);
+		view.buildDrawingCache();
+		Bitmap b1 = view.getDrawingCache();
+		// 获取屏幕长和高
+		int width = activity.getWindowManager().getDefaultDisplay().getWidth();
+		int height = activity.getWindowManager().getDefaultDisplay().getHeight();
+		Rect frame = new Rect();
+		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+		int statusBarHeight = frame.top;
+		int imgWH = (width * 3 / 4) + 12;
+		Bitmap b = Bitmap.createBitmap(b1, (width - imgWH)/2, (height - imgWH + statusBarHeight)/2, imgWH, imgWH);
+		view.destroyDrawingCache();
+		return b;
+	}
 }
